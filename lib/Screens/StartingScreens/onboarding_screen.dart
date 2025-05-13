@@ -1,0 +1,192 @@
+import 'package:flutter/material.dart';
+
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _controller = PageController();
+  int _currentPage = 0;
+
+  final List<Map<String, String>> _onboardingData = [
+    {
+      "image": "assets/images/Onboarding1.jpg",
+      "title": "Attend Live Classes",
+      "subtitle":
+          "Learn in real-time from expert tutors, anytime, anywhere.",
+    },
+    {
+      "image": "assets/images/Onboarding2.jpg",
+      "title": "Chat with Tutors",
+      "subtitle":
+          "Instantly connect with tutors to ask questions or clear doubts.",
+    },
+    {
+      "image": "assets/images/Onboarding3.jpg",
+      "title": "Track Your Progress",
+      "subtitle":
+          "Monitor attendance, performance and stay on top of your schedule.",
+    },
+  ];
+
+  void _nextPage() {
+    if (_currentPage < _onboardingData.length - 1) {
+      _controller.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _goToLogin();
+    }
+  }
+
+  void _goToLogin() {
+    print("Navigated to Login");
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+            child: SizedBox(
+              width: constraints.maxWidth > 600 ? 600 : double.infinity,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32),
+                child: _buildOnboardingContent(),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOnboardingContent() {
+    final isLastPage = _currentPage == _onboardingData.length - 1;
+
+    return Column(
+      children: [
+        Expanded(
+          child: PageView.builder(
+            controller: _controller,
+            itemCount: _onboardingData.length,
+            onPageChanged: (index) {
+              setState(() => _currentPage = index);
+            },
+            itemBuilder: (context, index) {
+              final data = _onboardingData[index];
+
+              return Column(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: Image.asset(
+                        data["image"]!,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    data["title"]!,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    data["subtitle"]!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      _onboardingData.length,
+                      (i) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        width: _currentPage == i ? 12 : 8,
+                        height: _currentPage == i ? 12 : 8,
+                        decoration: BoxDecoration(
+                          color: _currentPage == i
+                              ? Colors.green
+                              : Colors.green.withOpacity(0.3),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 24),
+        isLastPage
+            ? ElevatedButton(
+                onPressed: _goToLogin,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff02D185),
+                  minimumSize: const Size(double.infinity, 56),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  "Get Started",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      _controller.jumpToPage(_onboardingData.length - 1);
+                    },
+                    child: const Text(
+                      "Skip",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: _nextPage,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff02D185),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "Next",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+}
