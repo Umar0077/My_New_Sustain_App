@@ -1,10 +1,17 @@
 import 'package:al_mehdi_online_school/constants/colors.dart';
+import 'package:al_mehdi_online_school/screens/teachers/schedule_class.dart';
+import 'package:al_mehdi_online_school/screens/teachers/teacher_attendance.dart';
+import 'package:al_mehdi_online_school/screens/teachers/teacher_chat.dart';
+import 'package:al_mehdi_online_school/screens/teachers/teacher_classes.dart';
+import 'package:al_mehdi_online_school/screens/teachers/teacher_profile.dart';
+import 'package:al_mehdi_online_school/screens/teachers/teacher_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:flutter/foundation.dart';
+import '../students/class_join.dart';
+import '../students/student_notifications.dart';
 
 class TeacherHomeScreen extends StatelessWidget {
-  const TeacherHomeScreen({Key? key}) : super(key: key);
+  const TeacherHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,35 +36,89 @@ class TeacherHomeScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 32),
                       _SidebarItem(
                         icon: Icons.home,
                         label: 'Home',
                         selected: true,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TeacherHomeScreen(),
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(height: 3),
                       _SidebarItem(
                         icon: Iconsax.teacher,
                         label: 'Classes',
                         selected: false,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TeacherClassesScreen()
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 3),
+                      _SidebarItem(
+                        icon: Icons.bar_chart,
+                        label: 'Attendance',
+                        selected: false,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TeacherAttendanceScreen()
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(height: 3),
                       _SidebarItem(
                         icon: Icons.chat,
                         label: 'Chat',
                         selected: false,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TeacherChatScreen(),
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(height: 3),
                       _SidebarItem(
                         icon: Icons.settings,
                         label: 'Settings',
                         selected: false,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TeacherSettingsScreen(),
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(height: 3),
                       _SidebarItem(
                         icon: Iconsax.user,
                         label: 'Profile',
                         selected: false,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TeacherProfileScreen(),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -88,7 +149,12 @@ class TeacherHomeScreen extends StatelessWidget {
                                 Icons.notifications,
                                 color: Colors.black,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => StudentNotificationScreen()),
+                                );
+                              },
                             ),
                             const SizedBox(width: 8),
                             const CircleAvatar(
@@ -119,7 +185,7 @@ class TeacherHomeScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: const Text(
-                                        'Welcome back, Teacher! Your next class starts in 2 hours.',
+                                        'Welcome back, Student! Your next class starts in 2 hours.',
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ),
@@ -134,7 +200,7 @@ class TeacherHomeScreen extends StatelessWidget {
                                       ),
                                       child: const Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Mark Attendance',
@@ -163,7 +229,7 @@ class TeacherHomeScreen extends StatelessWidget {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       // Today's Classes
                                       const Text(
@@ -200,14 +266,14 @@ class TeacherHomeScreen extends StatelessWidget {
                                       _WebConversationCard(
                                         name: 'Miss Sarah',
                                         message:
-                                            'Reminder: Assignment due tomorrow.',
+                                        'Reminder: Assignment due tomorrow.',
                                         time: '2 min ago',
                                       ),
                                       const SizedBox(height: 8),
                                       _WebConversationCard(
                                         name: 'Mr. John',
                                         message:
-                                            'Your feedback is due this week!',
+                                        'Your feedback is due this week!',
                                         time: '5 min ago',
                                       ),
                                     ],
@@ -234,7 +300,7 @@ class TeacherHomeScreen extends StatelessWidget {
               title: Row(
                 children: [
                   const Text(
-                    '👋 Welcome, Student!',
+                    '👋 Welcome, Teacher!',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -244,7 +310,12 @@ class TeacherHomeScreen extends StatelessWidget {
                   const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.notifications, color: Colors.black),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => StudentNotificationScreen()),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -261,7 +332,12 @@ class TeacherHomeScreen extends StatelessWidget {
                       title: 'Upcoming Class',
                       subtitle: 'Math with Miss Mahreen - 10:00 AM',
                       buttonText: 'Join',
-                      onButtonPressed: () {},
+                      onButtonPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => ConnectingToClassScreen()),
+                        );
+                      },
                     ),
                     const SizedBox(height: 12),
                     _InfoCard(
@@ -270,23 +346,61 @@ class TeacherHomeScreen extends StatelessWidget {
                       subtitle: '2 new messages',
                     ),
                     const SizedBox(height: 12),
-                    _InfoCard(
-                      icon: Icons.bar_chart,
-                      title: 'Attendance',
-                      subtitleWidget: Row(
-                        children: const [
-                          Text(
-                            'Today: Present',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          SizedBox(width: 6),
-                          Icon(Icons.circle, color: appGreen, size: 14),
-                        ],
+                    Card(
+                      elevation: 2,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFe5faf3),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Icon(Icons.bar_chart, color: appGreen),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  'Mark Attendance',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: appGreen,
+                                foregroundColor: Colors.white,
+                              ),
+                               onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const TeacherAttendanceScreen(),
+                                    ),
+                                  );
+                                },
+                               child: Text('Mark'))
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => ScheduleClassesScreen()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: appGreen,
                         shape: RoundedRectangleBorder(
@@ -295,7 +409,7 @@ class TeacherHomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: const Text(
-                        'Join Class',
+                        'Schedule Class',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -318,6 +432,44 @@ class TeacherHomeScreen extends StatelessWidget {
               unselectedLabelStyle: const TextStyle(fontSize: 12),
               selectedIconTheme: const IconThemeData(size: 24),
               unselectedIconTheme: const IconThemeData(size: 24),
+              onTap: (index) {
+                if (index == 1) {
+                  // Classes index
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TeacherClassesScreen(),
+                    ),
+                  );
+                }
+                if (index == 2) {
+                  // Classes index
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TeacherChatScreen(),
+                    ),
+                  );
+                }
+                if (index == 3) {
+                  // Classes index
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TeacherSettingsScreen(),
+                    ),
+                  );
+                }
+                if (index == 4) {
+                  // Classes index
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TeacherProfileScreen(),
+                    ),
+                  );
+                }
+              },
               items: const [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
                 BottomNavigationBarItem(
@@ -357,8 +509,7 @@ class _InfoCard extends StatelessWidget {
     this.subtitleWidget,
     this.buttonText,
     this.onButtonPressed,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -373,7 +524,7 @@ class _InfoCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: appGreen.withOpacity(0.1),
+                color: Color(0xFFe5faf3),
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(8),
@@ -395,12 +546,12 @@ class _InfoCard extends StatelessWidget {
                   subtitleWidget ??
                       (subtitle != null
                           ? Text(
-                            subtitle!,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                          )
+                        subtitle!,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                        ),
+                      )
                           : const SizedBox()),
                   if (buttonText != null && onButtonPressed != null) ...[
                     const SizedBox(height: 8),
@@ -440,13 +591,14 @@ class _SidebarItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool selected;
+  final VoidCallback? onTap;
 
   const _SidebarItem({
     required this.icon,
     required this.label,
     required this.selected,
-    Key? key,
-  }) : super(key: key);
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -459,6 +611,7 @@ class _SidebarItem extends StatelessWidget {
           color: selected ? appGreen : Colors.black,
         ),
       ),
+      onTap: onTap,
     );
   }
 }
@@ -474,8 +627,7 @@ class _WebClassCard extends StatelessWidget {
     required this.time,
     required this.teacher,
     required this.text,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -490,7 +642,7 @@ class _WebClassCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: appGreen.withOpacity(0.1),
+                color: Color(0xFFe5faf3),
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(8),
@@ -548,8 +700,19 @@ class _WebClassCard extends StatelessWidget {
                             maxWidth: 120,
                           ),
                           child: OutlinedButton(
-                            onPressed: () {},
-                            child: Text(text, overflow: TextOverflow.ellipsis),
+                            onPressed: () {
+                              if(text == 'Mark') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => TeacherAttendanceScreen()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => ConnectingToClassScreen()),
+                                );
+                              }
+                            },
                             style: OutlinedButton.styleFrom(
                               backgroundColor: appGreen,
                               foregroundColor: Colors.white,
@@ -565,6 +728,7 @@ class _WebClassCard extends StatelessWidget {
                                 vertical: 0,
                               ),
                             ),
+                            child: Text(text, overflow: TextOverflow.ellipsis),
                           ),
                         ),
                       ],
@@ -601,8 +765,19 @@ class _WebClassCard extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton(
-                            onPressed: () {},
-                            child: Text(text),
+                            onPressed: () {
+                              if(text == 'Mark') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => TeacherAttendanceScreen()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => ConnectingToClassScreen()),
+                                );
+                              }
+                            },
                             style: OutlinedButton.styleFrom(
                               backgroundColor: appGreen,
                               foregroundColor: Colors.white,
@@ -618,6 +793,7 @@ class _WebClassCard extends StatelessWidget {
                                 vertical: 0,
                               ),
                             ),
+                            child: Text(text),
                           ),
                         ),
                       ],
@@ -642,8 +818,7 @@ class _WebConversationCard extends StatelessWidget {
     required this.name,
     required this.message,
     required this.time,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -658,7 +833,7 @@ class _WebConversationCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: appGreen.withOpacity(0.1),
+                color: Color(0xFFe5faf3),
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(8),

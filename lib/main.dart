@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
       ),
       //home: const TeacherHomeScreen(),
-      home: const StudentHomeScreen(),
+      home: const TeacherHomeScreen(),
     );
   }
 }
