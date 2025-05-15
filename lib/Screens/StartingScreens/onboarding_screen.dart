@@ -1,3 +1,5 @@
+import 'package:al_mehdi_online_school/Screens/Auth%20Screens/login_screen.dart';
+import 'package:al_mehdi_online_school/components/Custom_button.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -44,7 +46,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _goToLogin() {
-    print("Navigated to Login");
+    // Navigate to the LoginScreen when Get Started is pressed
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+    );
   }
 
   @override
@@ -142,19 +148,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
         const SizedBox(height: 24),
         isLastPage
-            ? ElevatedButton(
-                onPressed: _goToLogin,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff02D185),
-                  minimumSize: const Size(double.infinity, 56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Text(
-                  "Get Started",
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
+            ? CustomButton(
+                text: "Get Started", // Set text as "Get Started"
+                onPressed: _goToLogin, // Navigate to the login screen when pressed
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
