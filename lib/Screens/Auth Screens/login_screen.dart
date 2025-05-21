@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import 'package:al_mehdi_online_school/Screens/AdminDashboard/admin_home_screen.dart';
 import 'package:al_mehdi_online_school/Screens/Auth%20Screens/admin_login_screen.dart';
+=======
+>>>>>>> cb0ee9f3bf3af0d7e14527dbc529ce8f9f1e2038
 import 'package:al_mehdi_online_school/Screens/Auth%20Screens/forgot_password.dart';
 import 'package:al_mehdi_online_school/Screens/Auth%20Screens/register_screen.dart';
 import 'package:al_mehdi_online_school/Screens/Home_Screens/Home_screen.dart';
@@ -38,12 +41,15 @@ class _LoginScreenState extends State<LoginScreen> {
       MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   }
+<<<<<<< HEAD
   void _goToAdminScreen() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
     );
   }
+=======
+>>>>>>> cb0ee9f3bf3af0d7e14527dbc529ce8f9f1e2038
 
   @override
   void dispose() {
@@ -140,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
               imagePath: 'assets/logo/facebook.png', 
               labelText: 'Continue with Facebook', 
               imagePadding: const EdgeInsets.only(left: 35), 
+<<<<<<< HEAD
               onPressed: (){}),
           TextButton(
                       onPressed: _goToAdminScreen,
@@ -148,6 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(color:Color(0xff02D185)),
                       ),
                     ),
+=======
+              onPressed: (){})
+>>>>>>> cb0ee9f3bf3af0d7e14527dbc529ce8f9f1e2038
           ],
         ),
       ),
